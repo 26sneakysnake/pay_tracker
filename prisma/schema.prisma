@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Bulletin {
+  id                       String   @id @default(cuid())
+  createdAt                DateTime @default(now())
+
+  // Période
+  periodStart              DateTime
+  periodEnd                DateTime
+
+  // Employeur
+  employerName             String?
+  employerSiret            String?
+
+  // Salaire
+  brutBase                 Float
+  cotisationsSalariales    Float
+  netAvantImpot            Float
+  tauxPrelevementSource    Float    @default(0)
+  montantPrelevementSource Float    @default(0)
+  netApayer                Float
+  montantNetSocial         Float?
+
+  // Avantages
+  nombreTitresRestaurant   Int?     @default(0)
+  valeurTitreRestaurant    Float?
+  montantTitresRestaurant  Float?
+
+  // Temps
+  heuresTravaillees        Float?
+  tauxHoraire              Float?
+
+  // Coût employeur
+  coutEmployeurTotal       Float?
+  cotisationsPatronales    Float?
+
+  // Détail cotisations
+  cotisationMaladie        Float?
+  cotisationRetraite       Float?
+  csgDeductible            Float?
+  csgNonDeductible         Float?
+
+  // Net imposable
+  netImposable             Float?
+
+  // Télétravail
+  joursTeletravail         Int?
+
+  // Fichier original
+  fileName                 String
+  rawText                  String?
+}
