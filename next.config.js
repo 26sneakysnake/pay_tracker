@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // pdf-parse requires Node.js APIs (fs, path) - exclude from browser bundle
-  serverExternalPackages: ['pdf-parse'],
+  experimental: {
+    // pdf-parse requires Node.js APIs - Next.js 14 key name
+    serverComponentsExternalPackages: ['pdf-parse'],
+  },
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {

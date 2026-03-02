@@ -1,14 +1,14 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { cn } from '@/lib/utils'
-import type { LucideIcon } from 'lucide-react'
 
 interface KPICardProps {
   title: string
   value: number
   format?: 'currency' | 'percent' | 'number' | 'hours' | 'days'
-  icon: LucideIcon
+  /** Pass a pre-rendered icon element, e.g. <Euro size={15} className="text-emerald-400" /> */
+  icon: ReactNode
   delta?: number
   deltaPercent?: number
   subtitle?: string
@@ -18,12 +18,12 @@ interface KPICardProps {
 }
 
 const colorMap = {
-  blue:   { text: 'text-blue-400',   bg: 'bg-blue-500/10',   border: 'border-blue-500/20',   icon: 'text-blue-400' },
-  green:  { text: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20', icon: 'text-emerald-400' },
-  yellow: { text: 'text-amber-400',  bg: 'bg-amber-500/10',  border: 'border-amber-500/20',  icon: 'text-amber-400' },
-  red:    { text: 'text-red-400',    bg: 'bg-red-500/10',    border: 'border-red-500/20',    icon: 'text-red-400' },
-  purple: { text: 'text-violet-400', bg: 'bg-violet-500/10', border: 'border-violet-500/20', icon: 'text-violet-400' },
-  gray:   { text: 'text-slate-300',  bg: 'bg-white/[0.04]',  border: 'border-white/10',      icon: 'text-slate-400' },
+  blue:   { text: 'text-blue-400',    bg: 'bg-blue-500/10'  },
+  green:  { text: 'text-emerald-400', bg: 'bg-emerald-500/10' },
+  yellow: { text: 'text-amber-400',   bg: 'bg-amber-500/10'  },
+  red:    { text: 'text-red-400',     bg: 'bg-red-500/10'    },
+  purple: { text: 'text-violet-400',  bg: 'bg-violet-500/10' },
+  gray:   { text: 'text-slate-300',   bg: 'bg-white/[0.04]'  },
 }
 
 function useCountUp(target: number, duration = 1000, delay = 0): number {
@@ -39,7 +39,6 @@ function useCountUp(target: number, duration = 1000, delay = 0): number {
         if (!startTimeRef.current) startTimeRef.current = timestamp
         const elapsed = timestamp - startTimeRef.current
         const progress = Math.min(elapsed / duration, 1)
-        // Ease-out cubic
         const eased = 1 - Math.pow(1 - progress, 3)
         setCurrent(target * eased)
         if (progress < 1) {
@@ -83,7 +82,7 @@ export function KPICard({
   title,
   value,
   format = 'currency',
-  icon: Icon,
+  icon,
   delta,
   deltaPercent,
   subtitle,
@@ -109,7 +108,7 @@ export function KPICard({
           {title}
         </p>
         <div className={cn('w-8 h-8 rounded-xl flex items-center justify-center', colors.bg)}>
-          <Icon size={15} className={colors.icon} />
+          {icon}
         </div>
       </div>
 

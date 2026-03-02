@@ -105,7 +105,7 @@ export default async function DashboardPage() {
           title="Net à payer"
           value={latest.netApayer}
           format="currency"
-          icon={Euro}
+          icon={<Euro size={15} className="text-emerald-400" />}
           delta={netDelta}
           deltaPercent={netDeltaPct}
           accentColor="green"
@@ -115,7 +115,7 @@ export default async function DashboardPage() {
           title="Brut de base"
           value={latest.brutBase}
           format="currency"
-          icon={Briefcase}
+          icon={<Briefcase size={15} className="text-blue-400" />}
           delta={brutDelta}
           accentColor="blue"
           animationDelay={100}
@@ -124,7 +124,7 @@ export default async function DashboardPage() {
           title="Cotisations salariales"
           value={latest.cotisationsSalariales}
           format="currency"
-          icon={PiggyBank}
+          icon={<PiggyBank size={15} className="text-amber-400" />}
           subtitle={`Taux ${((latest.cotisationsSalariales / latest.brutBase) * 100).toFixed(1)}%`}
           accentColor="yellow"
           animationDelay={200}
@@ -133,7 +133,7 @@ export default async function DashboardPage() {
           title="Heures travaillées"
           value={latest.heuresTravaillees ?? 0}
           format="hours"
-          icon={Clock}
+          icon={<Clock size={15} className="text-slate-400" />}
           subtitle={latest.heuresTravaillees
             ? `${formatCurrency(latest.netApayer / latest.heuresTravaillees)}/h net`
             : undefined}
@@ -148,7 +148,7 @@ export default async function DashboardPage() {
           title="Cumul net"
           value={agg.totalNet}
           format="currency"
-          icon={TrendingUp}
+          icon={<TrendingUp size={15} className="text-emerald-400" />}
           subtitle={`${agg.monthsWithData} mois`}
           accentColor="green"
           animationDelay={400}
@@ -157,7 +157,7 @@ export default async function DashboardPage() {
           title="Cumul brut"
           value={agg.totalBrut}
           format="currency"
-          icon={Building2}
+          icon={<Building2 size={15} className="text-blue-400" />}
           accentColor="blue"
           animationDelay={500}
         />
@@ -165,7 +165,7 @@ export default async function DashboardPage() {
           title="Projection annuelle nette"
           value={agg.projectionAnnuelle}
           format="currency"
-          icon={Target}
+          icon={<Target size={15} className="text-violet-400" />}
           subtitle="Basée sur la moyenne"
           accentColor="purple"
           animationDelay={600}
@@ -174,7 +174,7 @@ export default async function DashboardPage() {
           title="Titres-restaurant"
           value={latest.montantTitresRestaurant ?? 0}
           format="currency"
-          icon={Coffee}
+          icon={<Coffee size={15} className="text-amber-400" />}
           subtitle={latest.nombreTitresRestaurant
             ? `${latest.nombreTitresRestaurant} × ${formatCurrency(latest.valeurTitreRestaurant ?? 0)}`
             : undefined}
